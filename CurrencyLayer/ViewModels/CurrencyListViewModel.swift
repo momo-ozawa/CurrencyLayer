@@ -33,7 +33,6 @@ class CurrencyListViewModel {
     
     func bindOutput() {
         apiType.getCurrencies()
-            .asObservable()
             .map {
                 $0.currencies.map { key, value in Currency(code: key, name: value) }
             }
