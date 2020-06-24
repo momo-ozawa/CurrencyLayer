@@ -21,6 +21,9 @@
 		FAD2904224A350D50099688A /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2904124A350D50099688A /* Currencies.swift */; };
 		FAD2904424A351370099688A /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2904324A351370099688A /* APIError.swift */; };
 		FAD2904724A351C80099688A /* CurrencyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2904624A351C80099688A /* CurrencyListViewModel.swift */; };
+		FAD2904A24A37D910099688A /* RateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2904924A37D910099688A /* RateListViewModel.swift */; };
+		FAD2904C24A37D9E0099688A /* RateListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2904B24A37D9E0099688A /* RateListViewController.swift */; };
+		FAD2904E24A37DB00099688A /* RateListStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAD2904D24A37DB00099688A /* RateListStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		FAD2904124A350D50099688A /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		FAD2904324A351370099688A /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		FAD2904624A351C80099688A /* CurrencyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListViewModel.swift; sourceTree = "<group>"; };
+		FAD2904924A37D910099688A /* RateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateListViewModel.swift; sourceTree = "<group>"; };
+		FAD2904B24A37D9E0099688A /* RateListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateListViewController.swift; sourceTree = "<group>"; };
+		FAD2904D24A37DB00099688A /* RateListStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RateListStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD2904524A351A40099688A /* CurrencyList */,
+				FAD2904F24A37DB90099688A /* RateList */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -164,8 +171,18 @@
 			isa = PBXGroup;
 			children = (
 				FAD2904624A351C80099688A /* CurrencyListViewModel.swift */,
+				FAD2904924A37D910099688A /* RateListViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FAD2904F24A37DB90099688A /* RateList */ = {
+			isa = PBXGroup;
+			children = (
+				FAD2904D24A37DB00099688A /* RateListStoryboard.storyboard */,
+				FAD2904B24A37D9E0099688A /* RateListViewController.swift */,
+			);
+			path = RateList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA05DFE124A34E3E0082EA30 /* LaunchScreen.storyboard in Resources */,
+				FAD2904E24A37DB00099688A /* RateListStoryboard.storyboard in Resources */,
 				FAD2903924A34F2A0099688A /* CurrencyListStoryboard.storyboard in Resources */,
 				FA05DFDE24A34E3E0082EA30 /* Assets.xcassets in Resources */,
 			);
@@ -289,9 +307,11 @@
 				FAD2903B24A350A70099688A /* CurrencyLayerRouter.swift in Sources */,
 				FA05DFDC24A34E3B0082EA30 /* CurrencyLayer.xcdatamodeld in Sources */,
 				FAD2903624A34F0C0099688A /* CurrencyListViewController.swift in Sources */,
+				FAD2904A24A37D910099688A /* RateListViewModel.swift in Sources */,
 				FAD2904224A350D50099688A /* Currencies.swift in Sources */,
 				FAD2904724A351C80099688A /* CurrencyListViewModel.swift in Sources */,
 				FA05DFD424A34E3B0082EA30 /* SceneDelegate.swift in Sources */,
+				FAD2904C24A37D9E0099688A /* RateListViewController.swift in Sources */,
 				FAD2904424A351370099688A /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

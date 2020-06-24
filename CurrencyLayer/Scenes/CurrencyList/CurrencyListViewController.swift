@@ -6,8 +6,8 @@
 //  Copyright © 2020 Momo Ozawa. All rights reserved.
 //
 
-import UIKit
 import RxSwift
+import UIKit
 
 class CurrencyListViewController: UIViewController {
 
@@ -21,7 +21,7 @@ class CurrencyListViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CurrencyCell")
         bindUI()
     }
     
@@ -42,7 +42,7 @@ extension CurrencyListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell")!
         let currency = viewModel.currencies.value[indexPath.row]
         cell.textLabel?.text = "\(currency.code): \(currency.name)"
         return cell

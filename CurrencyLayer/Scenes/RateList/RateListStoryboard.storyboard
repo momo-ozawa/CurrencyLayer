@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xV7-3F-JnB">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Rate List View Controller-->
+        <scene sceneID="n4I-Qy-HR9">
+            <objects>
+                <viewController id="xV7-3F-JnB" customClass="RateListViewController" customModule="CurrencyLayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="smf-CV-iMl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sWq-Yo-7m5">
+                                <rect key="frame" x="20" y="108" width="374" height="34"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bKr-z8-a7K">
+                                        <rect key="frame" x="0.0" y="0.0" width="308" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIT-Mg-Ueo">
+                                        <rect key="frame" x="328" y="0.0" width="46" height="34"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GQy-K1-cZC">
+                                <rect key="frame" x="0.0" y="162" width="414" height="700"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="sWq-Yo-7m5" firstAttribute="leading" secondItem="Igl-nV-FPO" secondAttribute="leading" constant="20" id="1OM-1C-nuA"/>
+                            <constraint firstItem="GQy-K1-cZC" firstAttribute="leading" secondItem="Igl-nV-FPO" secondAttribute="leading" id="6J2-p0-Us6"/>
+                            <constraint firstItem="Igl-nV-FPO" firstAttribute="trailing" secondItem="sWq-Yo-7m5" secondAttribute="trailing" constant="20" id="ML9-au-FlF"/>
+                            <constraint firstItem="sWq-Yo-7m5" firstAttribute="top" secondItem="Igl-nV-FPO" secondAttribute="top" constant="20" id="O0I-Ob-vIX"/>
+                            <constraint firstItem="Igl-nV-FPO" firstAttribute="trailing" secondItem="GQy-K1-cZC" secondAttribute="trailing" id="c10-tu-8xK"/>
+                            <constraint firstItem="Igl-nV-FPO" firstAttribute="bottom" secondItem="GQy-K1-cZC" secondAttribute="bottom" id="i5l-vH-EhV"/>
+                            <constraint firstItem="GQy-K1-cZC" firstAttribute="top" secondItem="sWq-Yo-7m5" secondAttribute="bottom" constant="20" id="ykW-qk-PmV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Igl-nV-FPO"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="amountTextField" destination="bKr-z8-a7K" id="fOq-CV-9Eo"/>
+                        <outlet property="baseCurrencyButton" destination="kIT-Mg-Ueo" id="kSr-9M-3IF"/>
+                        <outlet property="tableView" destination="GQy-K1-cZC" id="AYd-ty-saO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G6A-4P-x3Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="72"/>
+        </scene>
+    </scenes>
+</document>
