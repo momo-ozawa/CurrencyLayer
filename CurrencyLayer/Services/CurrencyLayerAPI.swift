@@ -23,7 +23,7 @@ enum Errors: Error {
 }
 
 struct CurrencyLayerAPI: CurrencyLayerAPIProtocol {
-    
+        
     static func getQuotes() -> Observable<Quotes> {
         return request(urlRequest: CurrencyLayerRouter.quotes)
     }

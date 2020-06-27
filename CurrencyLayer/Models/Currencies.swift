@@ -11,3 +11,8 @@ import Foundation
 struct Currencies: Decodable {
     var currencies: [String: String]
 }
+
+struct Currency {
+    let code: String
+    let name: String
+}

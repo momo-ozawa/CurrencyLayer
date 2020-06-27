@@ -15,3 +15,8 @@ struct Quotes: Decodable {
     var source: String
     var quotes: [CurrencyPair: Double]
 }
+
+struct Quote {
+    var currencyCode: String
+    var exchangeRateValue: Double
+}
