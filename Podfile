@@ -6,10 +6,12 @@ target 'CurrencyLayer' do
   use_frameworks!
 
   # Pods for CurrencyLayer
+  pod 'Alamofire', '~> 5.2'
   pod 'R.swift'
+  pod 'RealmSwift'
+  pod 'RxRealm'
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'SwiftLint'
-  pod 'Alamofire', '~> 5.2'
 end

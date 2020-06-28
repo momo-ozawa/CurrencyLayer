@@ -1,5 +1,5 @@
 //
-//  CurrencyLayerAPI.swift
+//  CurrencyAPI.swift
 //  CurrencyLayer
 //
 //  Created by Momo Ozawa on 2020/06/24.
@@ -10,9 +10,9 @@ import Alamofire
 import Foundation
 import RxSwift
 
-protocol CurrencyLayerAPIProtocol {
-    static func getQuotes() -> Observable<Quotes>
-    static func getCurrencies() -> Observable<Currencies>
+protocol CurrencyAPIProtocol {
+    func getQuotes() -> Observable<Quotes>
+    func getCurrencies() -> Observable<Currencies>
 }
 
 // MARK: - API errors
@@ -22,17 +22,21 @@ enum Errors: Error {
     case connectionError
 }
 
-struct CurrencyLayerAPI: CurrencyLayerAPIProtocol {
+class CurrencyAPI: CurrencyAPIProtocol {
+    
+    static let shared = CurrencyAPI()
+    
+    private init() {}
         
-    static func getQuotes() -> Observable<Quotes> {
+    func getQuotes() -> Observable<Quotes> {
         return request(urlRequest: CurrencyLayerRouter.quotes)
     }
     
-    static func getCurrencies() -> Observable<Currencies> {
+    func getCurrencies() -> Observable<Currencies> {
         return request(urlRequest: CurrencyLayerRouter.currencies)
     }
     
-    private static func request<T>(urlRequest: URLRequestConvertible) -> Observable<T> where T: Decodable {
+    private func request<T>(urlRequest: URLRequestConvertible) -> Observable<T> where T: Decodable {
         return Observable.create { observer in
             
             let request = AF.request(urlRequest)

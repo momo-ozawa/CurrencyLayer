@@ -38,7 +38,11 @@ class ExchangeRatesViewController: UIViewController {
         
         viewModel = ExchangeRatesViewModel(
             amount: amountTextField.rx.text.orEmpty.asDriver(),
-            service: CurrencyService(apiType: CurrencyLayerAPI.self)
+            service: CurrencyService(
+                API: CurrencyAPI.shared,
+                realmStore: CurrencyRealmStore.shared,
+                localStore: CurrencyLocalStore.shared
+            )
         )
         
         amountTextField.keyboardType = .decimalPad
@@ -72,7 +76,11 @@ class ExchangeRatesViewController: UIViewController {
                 
                 let vm = SupportedCurrenciesViewModel(
                     baseCurrencyCode: self.viewModel.currencyCode,
-                    service: CurrencyService(apiType: CurrencyLayerAPI.self)
+                    service: CurrencyService(
+                        API: CurrencyAPI.shared,
+                        realmStore: CurrencyRealmStore.shared,
+                        localStore: CurrencyLocalStore.shared
+                    )
                 )
                 
                 let destination = SupportedCurrenciesViewController.createWith(

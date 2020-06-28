@@ -31,7 +31,7 @@ class ExchangeRatesViewModel {
             .map { service.getUSDRate(for: $0) }
             .flatMap { $0 }
             .asDriver(onErrorJustReturn: 1.0)
-
+        
         Driver
             .combineLatest(amount, baseValue) { amount, value in
                 service.getExchangeRates(for: Double(amount) ?? 0.0, baseValue: value)
@@ -44,7 +44,8 @@ class ExchangeRatesViewModel {
 
 }
 
-struct ExchangeRate {
-    let targetCurrencyCode: String
-    let value: Double
-}
+//struct ExchangeRate {
+//    let targetCurrencyCode: String
+//    let value: Double
+//}
+

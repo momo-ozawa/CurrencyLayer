@@ -11,12 +11,9 @@ import Foundation
 struct Quotes: Decodable {
     typealias CurrencyPair = String
     
-    var timestamp: Date
+    var success: Bool
+    var timestamp: Double // Unix timestamp
     var source: String
     var quotes: [CurrencyPair: Double]
 }
 
-struct Quote {
-    var currencyCode: String
-    var exchangeRateValue: Double
-}
