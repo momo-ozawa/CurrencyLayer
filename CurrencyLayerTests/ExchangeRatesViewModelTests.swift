@@ -40,8 +40,11 @@ class ExchangeRatesViewModelTests: XCTestCase {
             },
             getExchangeRatesMock: { amount, baseValue in
                 let rates = ["USD": 1.0, "JPY": 107.1, "SGD": 1.3]
-                return rates.map {
+                let exchangeRates = rates.map {
                     ExchangeRate(targetCurrencyCode: $0.key, value: $0.value / baseValue * amount)
+                }
+                return exchangeRates.sorted { (lhs, rhs) in
+                    lhs.targetCurrencyCode < rhs.targetCurrencyCode
                 }
             }
         )
@@ -72,27 +75,28 @@ class ExchangeRatesViewModelTests: XCTestCase {
         let exchangeRatesObserver = scheduler.createObserver([ExchangeRate].self)
         
         viewModel.exchangeRates
+            .skip(1)
             .subscribe(exchangeRatesObserver)
             .disposed(by: disposeBag)
         
         scheduler.start()
         
         let expected10 = [
-            ExchangeRate(targetCurrencyCode: "USD", value: 0),
-            ExchangeRate(targetCurrencyCode: "JPY", value: 0),
-            ExchangeRate(targetCurrencyCode: "SGD", value: 0)
+            ExchangeRate(targetCurrencyCode: "JPY", value: 0.0),
+            ExchangeRate(targetCurrencyCode: "SGD", value: 0.0),
+            ExchangeRate(targetCurrencyCode: "USD", value: 0.0)
         ]
         
         let expected20 = [
-            ExchangeRate(targetCurrencyCode: "USD", value: 1.0),
             ExchangeRate(targetCurrencyCode: "JPY", value: 107.1),
-            ExchangeRate(targetCurrencyCode: "SGD", value: 1.3)
+            ExchangeRate(targetCurrencyCode: "SGD", value: 1.3),
+            ExchangeRate(targetCurrencyCode: "USD", value: 1.0)
         ]
         
         let expected30 = [
-            ExchangeRate(targetCurrencyCode: "USD", value: 10),
-            ExchangeRate(targetCurrencyCode: "JPY", value: 1071),
-            ExchangeRate(targetCurrencyCode: "SGD", value: 13)
+            ExchangeRate(targetCurrencyCode: "JPY", value: 1071.0),
+            ExchangeRate(targetCurrencyCode: "SGD", value: 13.0),
+            ExchangeRate(targetCurrencyCode: "USD", value: 10.0)
         ]
         
         let expected = [

@@ -14,10 +14,16 @@ class MockCurrencyService: CurrencyServiceProtocol {
     
     private var getUSDRateMock: (String) -> Double
     private var getExchangeRatesMock: (Double, Double) -> [ExchangeRate]
+//    private var getCurrencyArrayMock: () -> [Currency]
+//    private var getBaseCurrencyCodeMock: () -> String?
+//    private var setBaseCurrencyCodeMock: (String) -> Void
 
     init(
         getUSDRateMock: @escaping (String) -> Double,
         getExchangeRatesMock: @escaping (Double, Double) -> [ExchangeRate]
+//        getCurrencyArrayMock: @escaping () -> [Currency],
+//        getBaseCurrencyCodeMock: @escaping () -> String?,
+//        setBaseCurrencyCodeMock: @escaping (String) -> Void
     ) {
         self.getUSDRateMock = getUSDRateMock
         self.getExchangeRatesMock = getExchangeRatesMock
@@ -38,7 +44,7 @@ class MockCurrencyService: CurrencyServiceProtocol {
     }
     
     func getBaseCurrencyCode() -> String? {
-        return ""
+        return "USD"
     }
     
     func setBaseCurrencyCode(_ code: String) {
