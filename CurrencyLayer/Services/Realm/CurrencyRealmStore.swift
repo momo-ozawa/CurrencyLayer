@@ -8,8 +8,8 @@
 
 import Foundation
 import RealmSwift
-import RxRealm
 import RxSwift
+import RxRealm
 
 protocol CurrencyRealmStoreProtocol {
     func addOrUpdateCurrency(code: String, name: String) -> Currency?

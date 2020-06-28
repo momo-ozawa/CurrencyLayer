@@ -18,3 +18,6 @@ extension ExchangeRate {
         return String(format: "%.3f", self.value)
     }
 }
+
+extension ExchangeRate: Equatable {
+}

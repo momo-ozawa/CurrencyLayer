@@ -1,0 +1,5 @@
+github "Alamofire/Alamofire" ~> 5.2
+github "ReactiveX/RxSwift" ~> 5.0
+github "realm/realm-cocoa"
+github "RxSwiftCommunity/RxDataSources" ~> 4.0
+github "RxSwiftCommunity/RxRealm"

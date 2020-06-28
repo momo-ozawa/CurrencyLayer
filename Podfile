@@ -9,12 +9,7 @@ target 'CurrencyLayer' do
   inhibit_all_warnings!
 
   # Pods for CurrencyLayer
-  pod 'Alamofire', '~> 5.2'
   pod 'R.swift'
-  pod 'RealmSwift'
-  pod 'RxRealm'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'RxDataSources'
   pod 'SwiftLint'
+
 end

@@ -123,6 +123,20 @@ struct R: Rswift.Validatable {
   }
   #endif
 
+  /// This `R.file` struct is generated, and contains static references to 1 files.
+  struct file {
+    /// Resource file `input.xcfilelist`.
+    static let inputXcfilelist = Rswift.FileResource(bundle: R.hostingBundle, name: "input", pathExtension: "xcfilelist")
+
+    /// `bundle.url(forResource: "input", withExtension: "xcfilelist")`
+    static func inputXcfilelist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.inputXcfilelist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    fileprivate init() {}
+  }
+
   /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `CurrencyCell`.
