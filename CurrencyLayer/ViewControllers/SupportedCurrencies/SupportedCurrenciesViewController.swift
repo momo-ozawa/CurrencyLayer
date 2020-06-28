@@ -11,27 +11,33 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class SupportedCurrenciesViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+final class SupportedCurrenciesViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
     var viewModel: SupportedCurrenciesViewModel!
-    var wireframe: SupportedCurrenciesWireframe!
+    var dependency: Dependency!
     
-    static func createWith(storyboard: UIStoryboard,
-                           viewModel: SupportedCurrenciesViewModel) -> SupportedCurrenciesViewController {
-        guard let viewController = storyboard.instantiateInitialViewController() as? SupportedCurrenciesViewController else {
-            fatalError("Failed to instantiate ViewController")
-        }
-        viewController.viewModel = viewModel
-        return viewController
-    }
-    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel = SupportedCurrenciesViewModel(
+            input: (
+                baseCurrencyCode: dependency.currencyCode,
+                currencySelected: tableView.rx.modelSelected(Currency.self).asSignal(),
+                cancelTap: cancelBarButton.rx.tap.asSignal()
+            ),
+            service: CurrencyService(
+                API: CurrencyAPI.shared,
+                realmStore: CurrencyRealmStore.shared,
+                localStore: CurrencyLocalStore.shared
+            ),
+            wireframe: SupportedCurrenciesWireframe(for: self)
+        )
+        
         bindUI()
     }
     
@@ -48,24 +54,22 @@ class SupportedCurrenciesViewController: UIViewController {
                 cell.accessoryType = self.viewModel.baseCurrencyCode.value == currency.code ? .checkmark : .none
             }
             .disposed(by: disposeBag)
-        
-        tableView.rx.modelSelected(Currency.self)
-            .subscribe(onNext: { [weak self] currency in
-                guard let self = self else { return }
-                self.viewModel.baseCurrencyCode.accept(currency.code)
-                //guard let presentingVC = self.presentingViewController as? ExchangeRatesViewController else { return }
-                //presentingVC.baseCurrencyButton.setTitle(currency.code, for: .normal)
-                self.navigationController?.dismiss(animated: true, completion: nil)
-
-            })
-            .disposed(by: disposeBag)
-        
-        cancelBarButton.rx.tap
-            .subscribe(onNext: {
-                self.navigationController?.dismiss(animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
-
     }
 
+}
+
+extension SupportedCurrenciesViewController: StoryboardInstantiatable {
+    
+    static var storyboard: UIStoryboard {
+        return R.storyboard.supportedCurrenciesStoryboard()
+    }
+    
+    struct Dependency {
+        let currencyCode: BehaviorRelay<String>
+    }
+    
+    func inject(_ dependency: Dependency) {
+        self.dependency = dependency
+    }
+    
 }

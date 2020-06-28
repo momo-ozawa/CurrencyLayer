@@ -22,25 +22,34 @@ class SupportedCurrenciesViewModel {
         
     // MARK: - Init
     
-    init(baseCurrencyCode: BehaviorRelay<String>, service: CurrencyServiceProtocol) {
-        self.baseCurrencyCode = baseCurrencyCode
+    init(
+        input: (
+            baseCurrencyCode: BehaviorRelay<String>,
+            currencySelected: Signal<Currency>,
+            cancelTap: Signal<Void>
+        ),
+        service: CurrencyServiceProtocol,
+        wireframe: SupportedCurrenciesWireframeProtocol
+    ) {
+        self.baseCurrencyCode = input.baseCurrencyCode
         
         service.getCurrencyArray()
             .bind(to: currencies)
             .disposed(by: disposeBag)
         
+        input.currencySelected
+            .emit(onNext: { currency in
+                service.setBaseCurrencyCode(currency.code)
+                input.baseCurrencyCode.accept(currency.code)
+                wireframe.routeToExchangeRates()
+            })
+            .disposed(by: disposeBag)
         
-
-        
+        input.cancelTap
+            .emit(onNext: {
+                wireframe.routeToExchangeRates()
+            })
+            .disposed(by: disposeBag)
     }
-    
-//    func bindOutput() {
-//        apiType.getCurrencies()
-//            .map {
-//                $0.currencies.map { code, name in Currency(code: code, name: name) }
-//            }
-//            .bind(to: currencies)
-//            .disposed(by: disposeBag)
-//    }
 
 }

@@ -9,12 +9,19 @@
 import UIKit
 
 protocol SupportedCurrenciesWireframeProtocol {
-    func routeToExchangeRates(currencyCode: String)
+    func routeToExchangeRates()
 }
 
 class SupportedCurrenciesWireframe: SupportedCurrenciesWireframeProtocol {
+
+    private weak var viewController: UIViewController?
+    
+    init(for viewController: UIViewController) {
+        self.viewController = viewController
+    }
  
-    func routeToExchangeRates(currencyCode: String) {
+    func routeToExchangeRates() {
+        self.viewController?.dismiss(animated: true, completion: nil)
     }
 }
 

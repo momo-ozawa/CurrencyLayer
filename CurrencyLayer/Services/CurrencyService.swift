@@ -13,6 +13,8 @@ protocol CurrencyServiceProtocol {
     func getUSDRate(for currencyCode: String) -> Observable<Double>
     func getExchangeRates(for amount: Double, baseValue: Double) -> Observable<[ExchangeRate]>
     func getCurrencyArray() -> Observable<[Currency]>
+    func getBaseCurrencyCode() -> String?
+    func setBaseCurrencyCode(_ code: String)
 }
 
 struct CurrencyService: CurrencyServiceProtocol {
@@ -75,7 +77,14 @@ struct CurrencyService: CurrencyServiceProtocol {
                     lhs.code < rhs.code
                 }
             }
-        
+    }
+    
+    func getBaseCurrencyCode() -> String? {
+        return localStore.get(for: .baseCurrencyCode)
+    }
+    
+    func setBaseCurrencyCode(_ code: String) {
+        localStore.set(value: code, for: .baseCurrencyCode)
     }
 
 }

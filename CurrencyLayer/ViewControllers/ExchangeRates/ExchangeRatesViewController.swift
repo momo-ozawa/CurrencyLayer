@@ -11,23 +11,11 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class ExchangeRatesViewController: UIViewController {
+final class ExchangeRatesViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
     var viewModel: ExchangeRatesViewModel!
-    var wireframe: ExchangeRatesWireframe!
-    
-    static func createWith(storyboard: UIStoryboard,
-                           viewModel: ExchangeRatesViewModel,
-                           wireframe: ExchangeRatesWireframe) -> ExchangeRatesViewController {
-        guard let viewController = storyboard.instantiateInitialViewController() as? ExchangeRatesViewController else {
-            fatalError("Failed to instantiate ViewController")
-        }
-        viewController.viewModel = viewModel
-        viewController.wireframe = wireframe
-        return viewController
-    }
 
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var baseCurrencyButton: UIButton!
@@ -37,12 +25,16 @@ class ExchangeRatesViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel = ExchangeRatesViewModel(
-            amount: amountTextField.rx.text.orEmpty.asDriver(),
+            input: (
+                amount: amountTextField.rx.text.orEmpty.asDriver(),
+                baseCurrencyTap: baseCurrencyButton.rx.tap.asSignal()
+            ),
             service: CurrencyService(
                 API: CurrencyAPI.shared,
                 realmStore: CurrencyRealmStore.shared,
                 localStore: CurrencyLocalStore.shared
-            )
+            ),
+            wireframe: ExchangeRatesWireframe(for: self)
         )
         
         amountTextField.keyboardType = .decimalPad
@@ -67,32 +59,15 @@ class ExchangeRatesViewController: UIViewController {
         viewModel.currencyCode
             .bind(to: baseCurrencyButton.rx.title())
             .disposed(by: disposeBag)
-        
-        
-        
-        baseCurrencyButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                let vm = SupportedCurrenciesViewModel(
-                    baseCurrencyCode: self.viewModel.currencyCode,
-                    service: CurrencyService(
-                        API: CurrencyAPI.shared,
-                        realmStore: CurrencyRealmStore.shared,
-                        localStore: CurrencyLocalStore.shared
-                    )
-                )
-                
-                let destination = SupportedCurrenciesViewController.createWith(
-                    storyboard: R.storyboard.supportedCurrenciesStoryboard(),
-                    viewModel: vm
-                )
-                
-                let navigation = UINavigationController(rootViewController: destination)
-                self.present(navigation, animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
-
     }
 
 }
+
+extension ExchangeRatesViewController: StoryboardInstantiatable {
+    
+    static var storyboard: UIStoryboard {
+        return R.storyboard.exchangeRatesStoryboard()
+    }
+    
+}
+

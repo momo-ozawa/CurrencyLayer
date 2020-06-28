@@ -6,10 +6,12 @@
 //  Copyright © 2020 Momo Ozawa. All rights reserved.
 //
 
+import RxCocoa
+import RxSwift
 import UIKit
 
 protocol ExchangeRatesWireframeProtocol {
-    func routeToSupportedCurrencies(with currencyCode: String)
+    func routeToSupportedCurrencies(with currencyCode: BehaviorRelay<String>)
 }
 
 class ExchangeRatesWireframe: ExchangeRatesWireframeProtocol {
@@ -20,23 +22,11 @@ class ExchangeRatesWireframe: ExchangeRatesWireframeProtocol {
         self.viewController = viewController
     }
     
-    func routeToSupportedCurrencies(with currencyCode: String) {
-        
-//        let viewModel = SupportedCurrenciesViewModel(currencyCode: currencyCode)
-//        
-//        let destination = SupportedCurrenciesViewController.createWith(
-//            storyboard: R.storyboard.supportedCurrenciesStoryboard(),
-//            viewModel: viewModel,
-//            wireframe: SupportedCurrenciesWireframe()
-//        )
-//        
-//        let navigation = UINavigationController(rootViewController: destination)
-//        
-//        self.viewController?.present(navigation, animated: true, completion: nil)
-
-    }
-    
-    private func navigateToSupportedCurrencies() {
+    func routeToSupportedCurrencies(with currencyCode: BehaviorRelay<String>) {
+        let dependency = SupportedCurrenciesViewController.Dependency(currencyCode: currencyCode)
+        let destination = SupportedCurrenciesViewController.instantiate(with: dependency)
+        let navigation = UINavigationController(rootViewController: destination)
+        self.viewController?.present(navigation, animated: true, completion: nil)
     }
     
 }

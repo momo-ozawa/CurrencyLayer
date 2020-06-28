@@ -17,15 +17,21 @@ class ExchangeRatesViewModel {
     
     // MARK: - Outputs
     
-    let currencyCode = BehaviorRelay<String>.init(value: "USD")
+    let currencyCode: BehaviorRelay<String>
     let exchangeRates = BehaviorRelay<[ExchangeRate]>.init(value: [])
     
     // MARK: - Init
     
     init(
-        amount: Driver<String>,
-        service: CurrencyServiceProtocol
+        input: (
+            amount: Driver<String>,
+            baseCurrencyTap: Signal<Void>
+        ),
+        service: CurrencyServiceProtocol,
+        wireframe: ExchangeRatesWireframeProtocol
     ) {
+        let baseCurrencyCode = service.getBaseCurrencyCode() ?? "USD"
+        currencyCode = BehaviorRelay<String>.init(value: baseCurrencyCode)
         
         let baseValue = currencyCode
             .map { service.getUSDRate(for: $0) }
@@ -33,19 +39,20 @@ class ExchangeRatesViewModel {
             .asDriver(onErrorJustReturn: 1.0)
         
         Driver
-            .combineLatest(amount, baseValue) { amount, value in
+            .combineLatest(input.amount, baseValue) { amount, value in
                 service.getExchangeRates(for: Double(amount) ?? 0.0, baseValue: value)
             }
             .asObservable()
             .flatMap { $0 }
             .bind(to: exchangeRates)
             .disposed(by: disposeBag)
+        
+        input.baseCurrencyTap
+            .emit(onNext: {
+                wireframe.routeToSupportedCurrencies(with: self.currencyCode)
+            })
+            .disposed(by: disposeBag)
     }
 
 }
-
-//struct ExchangeRate {
-//    let targetCurrencyCode: String
-//    let value: Double
-//}
 

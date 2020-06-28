@@ -17,6 +17,8 @@
 		FA2E9CA124A790E800410059 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2E9CA024A790E800410059 /* Quote.swift */; };
 		FA4313CE24A762F200347108 /* ExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4313CD24A762F200347108 /* ExchangeRate.swift */; };
 		FA4313D024A762FD00347108 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4313CF24A762FD00347108 /* Currency.swift */; };
+		FA70240F24A88C63005DD7B1 /* Injectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA70240E24A88C63005DD7B1 /* Injectable.swift */; };
+		FA70241124A88C6D005DD7B1 /* StoryboardInstantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA70241024A88C6D005DD7B1 /* StoryboardInstantiable.swift */; };
 		FA89931324A6AC14009DEF80 /* SupportedCurrenciesWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA89931224A6AC14009DEF80 /* SupportedCurrenciesWireframe.swift */; };
 		FA89931524A6ACC5009DEF80 /* ExchangeRatesWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA89931424A6ACC5009DEF80 /* ExchangeRatesWireframe.swift */; };
 		FAA1164624A6161400ED23C4 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1164524A6161400ED23C4 /* CurrencyService.swift */; };
@@ -49,6 +51,8 @@
 		FA2E9CA024A790E800410059 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		FA4313CD24A762F200347108 /* ExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRate.swift; sourceTree = "<group>"; };
 		FA4313CF24A762FD00347108 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		FA70240E24A88C63005DD7B1 /* Injectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injectable.swift; sourceTree = "<group>"; };
+		FA70241024A88C6D005DD7B1 /* StoryboardInstantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInstantiable.swift; sourceTree = "<group>"; };
 		FA89931224A6AC14009DEF80 /* SupportedCurrenciesWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCurrenciesWireframe.swift; sourceTree = "<group>"; };
 		FA89931424A6ACC5009DEF80 /* ExchangeRatesWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesWireframe.swift; sourceTree = "<group>"; };
 		FAA1164524A6161400ED23C4 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 				FAD2904824A351DE0099688A /* ViewModels */,
 				FA89931624A6AEAB009DEF80 /* ViewControllers */,
 				FAD2903224A34EB60099688A /* Resources */,
+				FA70241224A88C73005DD7B1 /* Protocol */,
 			);
 			path = CurrencyLayer;
 			sourceTree = "<group>";
@@ -135,6 +140,15 @@
 				FA2E9CA024A790E800410059 /* Quote.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		FA70241224A88C73005DD7B1 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				FA70240E24A88C63005DD7B1 /* Injectable.swift */,
+				FA70241024A88C6D005DD7B1 /* StoryboardInstantiable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		FA89931624A6AEAB009DEF80 /* ViewControllers */ = {
@@ -378,11 +392,13 @@
 				FAA1164624A6161400ED23C4 /* CurrencyService.swift in Sources */,
 				FAA5AF3724A825C5002DF160 /* CurrencyLocalStore.swift in Sources */,
 				FAD2903B24A350A70099688A /* CurrencyLayerRouter.swift in Sources */,
+				FA70241124A88C6D005DD7B1 /* StoryboardInstantiable.swift in Sources */,
 				FA2E9C9F24A7670800410059 /* CurrencyRealmStore.swift in Sources */,
 				FAD2903624A34F0C0099688A /* SupportedCurrenciesViewController.swift in Sources */,
 				FA89931524A6ACC5009DEF80 /* ExchangeRatesWireframe.swift in Sources */,
 				FAD2904A24A37D910099688A /* ExchangeRatesViewModel.swift in Sources */,
 				FAD2904224A350D50099688A /* Currencies.swift in Sources */,
+				FA70240F24A88C63005DD7B1 /* Injectable.swift in Sources */,
 				FA19143E24A6CB7B001411D2 /* R.generated.swift in Sources */,
 				FAD2904724A351C80099688A /* SupportedCurrenciesViewModel.swift in Sources */,
 				FA4313CE24A762F200347108 /* ExchangeRate.swift in Sources */,
