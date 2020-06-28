@@ -12,18 +12,18 @@ import RxSwift
 import UIKit
 
 final class ExchangeRatesViewController: UIViewController {
-    
+
     private let disposeBag = DisposeBag()
-    
+
     var viewModel: ExchangeRatesViewModel!
 
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var baseCurrencyButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel = ExchangeRatesViewModel(
             input: (
                 amount: amountTextField.rx.text.orEmpty.asDriver(),
@@ -36,26 +36,35 @@ final class ExchangeRatesViewController: UIViewController {
             ),
             wireframe: ExchangeRatesWireframe(for: self)
         )
-        
-        amountTextField.keyboardType = .decimalPad
-        
-        baseCurrencyButton.setTitle("USD", for: .normal)
-        
+
+        setupUI()
         bindUI()
     }
-    
+
+    func setupUI() {
+        amountTextField.keyboardType = .decimalPad
+
+        let tapBackground = UITapGestureRecognizer()
+        tapBackground.rx.event
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            })
+            .disposed(by: disposeBag)
+        view.addGestureRecognizer(tapBackground)
+    }
+
     func bindUI() {
-        
+
         viewModel.exchangeRates
             .bind(to: tableView.rx.items(
                 cellIdentifier: "RateCell",
                 cellType: UITableViewCell.self)
             ) { (_, exchangeRate, cell) in
                 cell.textLabel?.text = exchangeRate.targetCurrencyCode
-                cell.detailTextLabel?.text = String(exchangeRate.value)
+                cell.detailTextLabel?.text = exchangeRate.displayedValue
             }
             .disposed(by: disposeBag)
-        
+
         viewModel.currencyCode
             .bind(to: baseCurrencyButton.rx.title())
             .disposed(by: disposeBag)
@@ -64,10 +73,9 @@ final class ExchangeRatesViewController: UIViewController {
 }
 
 extension ExchangeRatesViewController: StoryboardInstantiatable {
-    
+
     static var storyboard: UIStoryboard {
         return R.storyboard.exchangeRatesStoryboard()
     }
-    
-}
 
+}

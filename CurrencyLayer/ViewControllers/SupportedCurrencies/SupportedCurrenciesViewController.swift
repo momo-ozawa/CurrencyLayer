@@ -12,18 +12,18 @@ import RxSwift
 import UIKit
 
 final class SupportedCurrenciesViewController: UIViewController {
-    
+
     private let disposeBag = DisposeBag()
-    
+
     var viewModel: SupportedCurrenciesViewModel!
     var dependency: Dependency!
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel = SupportedCurrenciesViewModel(
             input: (
                 baseCurrencyCode: dependency.currencyCode,
@@ -37,12 +37,12 @@ final class SupportedCurrenciesViewController: UIViewController {
             ),
             wireframe: SupportedCurrenciesWireframe(for: self)
         )
-        
+
         bindUI()
     }
-    
+
     func bindUI() {
-        
+
         viewModel.currencies
             .bind(to: tableView.rx.items(
                 cellIdentifier: "CurrencyCell",
@@ -59,17 +59,17 @@ final class SupportedCurrenciesViewController: UIViewController {
 }
 
 extension SupportedCurrenciesViewController: StoryboardInstantiatable {
-    
+
     static var storyboard: UIStoryboard {
         return R.storyboard.supportedCurrenciesStoryboard()
     }
-    
+
     struct Dependency {
         let currencyCode: BehaviorRelay<String>
     }
-    
+
     func inject(_ dependency: Dependency) {
         self.dependency = dependency
     }
-    
+
 }

@@ -12,7 +12,7 @@
             <objects>
                 <viewController id="xV7-3F-JnB" customClass="ExchangeRatesViewController" customModule="CurrencyLayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="smf-CV-iMl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sWq-Yo-7m5">
@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="162" width="414" height="700"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RateCell" textLabel="G4P-dG-M2b" detailTextLabel="HDS-Dv-oCE" style="IBUITableViewCellStyleValue1" id="obL-sh-guf">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RateCell" textLabel="G4P-dG-M2b" detailTextLabel="HDS-Dv-oCE" style="IBUITableViewCellStyleValue1" id="obL-sh-guf">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="obL-sh-guf" id="n1c-He-z84">

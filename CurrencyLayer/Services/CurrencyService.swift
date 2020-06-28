@@ -18,17 +18,17 @@ protocol CurrencyServiceProtocol {
 }
 
 struct CurrencyService: CurrencyServiceProtocol {
-    
+
     private let API: CurrencyAPIProtocol
     private let realmStore: CurrencyRealmStoreProtocol
     private let localStore: CurrencyLocalStore
-    
+
     init(API: CurrencyAPIProtocol, realmStore: CurrencyRealmStoreProtocol, localStore: CurrencyLocalStore) {
         self.API = API
         self.realmStore = realmStore
         self.localStore = localStore
     }
-    
+
     func getUSDRate(for currencyCode: String) -> Observable<Double> {
         return getQuotesArray()
             .map {
@@ -37,8 +37,7 @@ struct CurrencyService: CurrencyServiceProtocol {
                 }?.exchangeRateValue ?? 1.0
             }
     }
-    
-    
+
     func getExchangeRates(for amount: Double, baseValue: Double) -> Observable<[ExchangeRate]> {
         return getQuotesArray()
             .map {
@@ -46,43 +45,41 @@ struct CurrencyService: CurrencyServiceProtocol {
                     let convertedValue = quote.exchangeRateValue / baseValue * amount
                     return ExchangeRate(targetCurrencyCode: quote.currencyCode, value: convertedValue)
                 }
-                
+
                 return exchangeRates.sorted { (lhs, rhs) in
                     lhs.targetCurrencyCode < rhs.targetCurrencyCode
                 }
             }
     }
-    
+
     func getCurrencyArray() -> Observable<[Currency]> {
-        
+
         if let timestamp: Date = localStore.get(for: .currenciesFetchedTimestamp), Date() < timestamp + 30 * 60,
            let fetchedCurrencies = realmStore.getCurrencies() {
-            print("===== Currencies timestamp: \(timestamp)")
             return Observable.of(fetchedCurrencies)
 
         }
-        
+
         return API.getCurrencies()
             .map { response in
-                
+
                 self.localStore.set(value: Date(), for: .currenciesFetchedTimestamp)
-                print("===== New currencies timestamp: \(Date())")
-                
+
                 let currencies: [Currency] = response.currencies.map { code, name in
                     let currency = self.realmStore.addOrUpdateCurrency(code: code, name: name)
                     return currency!
                 }
-                
+
                 return currencies.sorted { (lhs, rhs) in
                     lhs.code < rhs.code
                 }
             }
     }
-    
+
     func getBaseCurrencyCode() -> String? {
         return localStore.get(for: .baseCurrencyCode)
     }
-    
+
     func setBaseCurrencyCode(_ code: String) {
         localStore.set(value: code, for: .baseCurrencyCode)
     }
@@ -90,23 +87,21 @@ struct CurrencyService: CurrencyServiceProtocol {
 }
 
 extension CurrencyService {
-    
+
     private func getQuotesArray() -> Observable<[Quote]> {
-        
+
         if let timestamp: Date = localStore.get(for: .quotesFetchedTimestamp), Date() < timestamp + 30 * 60,
            let fetchedQuotes = realmStore.getQuotes() {
-            print("===== Quotes timestamp: \(timestamp)")
             return Observable.of(fetchedQuotes)
         }
-                
+
         return API.getQuotes()
             .map { response in
-                
+
                 if response.success {
                     self.localStore.set(value: Date(), for: .quotesFetchedTimestamp)
-                    print("===== New quotes timestamp: \(Date())")
                 }
-                
+
                 let quotes: [Quote] = response.quotes.map { currencyPair, exchangeRateValue in
                     let code = String(currencyPair.suffix(3))
                     let quote = self.realmStore.addOrUpdateQuote(
@@ -115,9 +110,9 @@ extension CurrencyService {
                     )
                     return quote!
                 }
-                
+
                 return quotes
         }
     }
-    
+
 }

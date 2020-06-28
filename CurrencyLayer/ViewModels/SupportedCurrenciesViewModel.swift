@@ -11,17 +11,17 @@ import RxSwift
 import RxCocoa
 
 class SupportedCurrenciesViewModel {
-    
+
     private let disposeBag = DisposeBag()
-                
+
     // MARK: - Inputs
     let baseCurrencyCode: BehaviorRelay<String>
-    
+
     // MARK: - Outputs
     let currencies = BehaviorRelay<[Currency]>.init(value: [])
-        
+
     // MARK: - Init
-    
+
     init(
         input: (
             baseCurrencyCode: BehaviorRelay<String>,
@@ -32,11 +32,11 @@ class SupportedCurrenciesViewModel {
         wireframe: SupportedCurrenciesWireframeProtocol
     ) {
         self.baseCurrencyCode = input.baseCurrencyCode
-        
+
         service.getCurrencyArray()
             .bind(to: currencies)
             .disposed(by: disposeBag)
-        
+
         input.currencySelected
             .emit(onNext: { currency in
                 service.setBaseCurrencyCode(currency.code)
@@ -44,7 +44,7 @@ class SupportedCurrenciesViewModel {
                 wireframe.routeToExchangeRates()
             })
             .disposed(by: disposeBag)
-        
+
         input.cancelTap
             .emit(onNext: {
                 wireframe.routeToExchangeRates()

@@ -23,30 +23,30 @@ enum Errors: Error {
 }
 
 class CurrencyAPI: CurrencyAPIProtocol {
-    
+
     static let shared = CurrencyAPI()
-    
+
     private init() {}
-        
+
     func getQuotes() -> Observable<Quotes> {
         return request(urlRequest: CurrencyLayerRouter.quotes)
     }
-    
+
     func getCurrencies() -> Observable<Currencies> {
         return request(urlRequest: CurrencyLayerRouter.currencies)
     }
-    
+
     private func request<T>(urlRequest: URLRequestConvertible) -> Observable<T> where T: Decodable {
         return Observable.create { observer in
-            
+
             let request = AF.request(urlRequest)
             request.responseJSON { response in
-                
+
                 guard let data = response.data else {
                     observer.onError(Errors.connectionError)
                     return
                 }
-                
+
                 do {
                     if let obj = try? JSONDecoder().decode(T.self, from: data) {
                         observer.onNext(obj)
@@ -59,11 +59,11 @@ class CurrencyAPI: CurrencyAPIProtocol {
                     observer.onError(error)
                 }
             }
-            
+
             return Disposables.create {
                 request.cancel()
             }
         }
     }
-    
+
 }

@@ -19,11 +19,11 @@ protocol CurrencyRealmStoreProtocol {
 }
 
 class CurrencyRealmStore: CurrencyRealmStoreProtocol {
-    
+
     static let shared = CurrencyRealmStore()
-    
+
     private init() {}
-    
+
     func addOrUpdateCurrency(code: String, name: String) -> Currency? {
         do {
             let currency = Currency()
@@ -39,7 +39,7 @@ class CurrencyRealmStore: CurrencyRealmStoreProtocol {
             return nil
         }
     }
-    
+
     func addOrUpdateQuote(currencyCode: String, exchangeRateValue: Double) -> Quote? {
         do {
             let quote = Quote()
@@ -55,7 +55,7 @@ class CurrencyRealmStore: CurrencyRealmStoreProtocol {
             return nil
         }
     }
-    
+
     func getCurrencies() -> [Currency]? {
         do {
             let realm = try Realm()
@@ -66,7 +66,7 @@ class CurrencyRealmStore: CurrencyRealmStoreProtocol {
             return nil
         }
     }
-    
+
     func getQuotes() -> [Quote]? {
         do {
             let realm = try Realm()

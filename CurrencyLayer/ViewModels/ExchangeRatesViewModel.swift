@@ -12,16 +12,16 @@ import RxSwift
 import RxCocoa
 
 class ExchangeRatesViewModel {
-    
+
     private let disposeBag = DisposeBag()
-    
+
     // MARK: - Outputs
-    
+
     let currencyCode: BehaviorRelay<String>
     let exchangeRates = BehaviorRelay<[ExchangeRate]>.init(value: [])
-    
+
     // MARK: - Init
-    
+
     init(
         input: (
             amount: Driver<String>,
@@ -32,12 +32,12 @@ class ExchangeRatesViewModel {
     ) {
         let baseCurrencyCode = service.getBaseCurrencyCode() ?? "USD"
         currencyCode = BehaviorRelay<String>.init(value: baseCurrencyCode)
-        
+
         let baseValue = currencyCode
             .map { service.getUSDRate(for: $0) }
             .flatMap { $0 }
             .asDriver(onErrorJustReturn: 1.0)
-        
+
         Driver
             .combineLatest(input.amount, baseValue) { amount, value in
                 service.getExchangeRates(for: Double(amount) ?? 0.0, baseValue: value)
@@ -46,7 +46,7 @@ class ExchangeRatesViewModel {
             .flatMap { $0 }
             .bind(to: exchangeRates)
             .disposed(by: disposeBag)
-        
+
         input.baseCurrencyTap
             .emit(onNext: {
                 wireframe.routeToSupportedCurrencies(with: self.currencyCode)
@@ -55,4 +55,3 @@ class ExchangeRatesViewModel {
     }
 
 }
-

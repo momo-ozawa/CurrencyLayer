@@ -15,13 +15,12 @@ protocol SupportedCurrenciesWireframeProtocol {
 class SupportedCurrenciesWireframe: SupportedCurrenciesWireframeProtocol {
 
     private weak var viewController: UIViewController?
-    
+
     init(for viewController: UIViewController) {
         self.viewController = viewController
     }
- 
+
     func routeToExchangeRates() {
         self.viewController?.dismiss(animated: true, completion: nil)
     }
 }
-

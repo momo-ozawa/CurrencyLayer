@@ -12,10 +12,8 @@ import RealmSwift
 class Currency: Object {
     @objc dynamic var code: String = ""
     @objc dynamic var name: String = ""
-    
+
     override class func primaryKey() -> String? {
         return "code"
     }
 }
-
-

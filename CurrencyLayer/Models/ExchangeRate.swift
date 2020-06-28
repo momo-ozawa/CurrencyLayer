@@ -12,3 +12,9 @@ struct ExchangeRate {
     let targetCurrencyCode: String
     let value: Double
 }
+
+extension ExchangeRate {
+    var displayedValue: String {
+        return String(format: "%.3f", self.value)
+    }
+}

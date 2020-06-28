@@ -5,6 +5,9 @@ target 'CurrencyLayer' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  # ignore all warnings from all pods
+  inhibit_all_warnings!
+
   # Pods for CurrencyLayer
   pod 'Alamofire', '~> 5.2'
   pod 'R.swift'
