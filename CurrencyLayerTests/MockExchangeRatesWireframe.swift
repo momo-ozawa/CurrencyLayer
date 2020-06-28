@@ -12,9 +12,8 @@ import XCTest
 @testable import CurrencyLayer
 
 class MockExchangeRatesWireframe: ExchangeRatesWireframeProtocol {
-    
+
     func routeToSupportedCurrencies(with currencyCode: BehaviorRelay<String>) {
-        
     }
-    
+
 }

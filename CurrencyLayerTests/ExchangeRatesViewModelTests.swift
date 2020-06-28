@@ -46,6 +46,9 @@ class ExchangeRatesViewModelTests: XCTestCase {
                 return exchangeRates.sorted { (lhs, rhs) in
                     lhs.targetCurrencyCode < rhs.targetCurrencyCode
                 }
+            },
+            getCurrencyArrayMock: {
+                return []
             }
         )
         

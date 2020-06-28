@@ -38,6 +38,8 @@
 		FA8F7B3A24A900C8003D3C25 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3AD18A24A8F2CF00B83D10 /* RxCocoa.framework */; };
 		FA8F7B3B24A900D3003D3C25 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3AD18824A8F2CE00B83D10 /* RxSwift.framework */; };
 		FA8F7B3C24A900D3003D3C25 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3AD18924A8F2CE00B83D10 /* RxTest.framework */; };
+		FA8F7B4024A91897003D3C25 /* SupportedCurrenciesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F7B3F24A91897003D3C25 /* SupportedCurrenciesViewModelTests.swift */; };
+		FA8F7B4224A918C5003D3C25 /* MockSupportedCurrenciesWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F7B4124A918C5003D3C25 /* MockSupportedCurrenciesWireframe.swift */; };
 		FAA1164624A6161400ED23C4 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1164524A6161400ED23C4 /* CurrencyService.swift */; };
 		FAA5AF3724A825C5002DF160 /* CurrencyLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA5AF3624A825C5002DF160 /* CurrencyLocalStore.swift */; };
 		FAD2903624A34F0C0099688A /* SupportedCurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2903524A34F0C0099688A /* SupportedCurrenciesViewController.swift */; };
@@ -97,6 +99,8 @@
 		FA89931424A6ACC5009DEF80 /* ExchangeRatesWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesWireframe.swift; sourceTree = "<group>"; };
 		FA8F7B3124A8F7FC003D3C25 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		FA8F7B3524A8FE45003D3C25 /* RxRealm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRealm.framework; path = Carthage/Build/iOS/RxRealm.framework; sourceTree = "<group>"; };
+		FA8F7B3F24A91897003D3C25 /* SupportedCurrenciesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCurrenciesViewModelTests.swift; sourceTree = "<group>"; };
+		FA8F7B4124A918C5003D3C25 /* MockSupportedCurrenciesWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSupportedCurrenciesWireframe.swift; sourceTree = "<group>"; };
 		FAA1164524A6161400ED23C4 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		FAA5AF3624A825C5002DF160 /* CurrencyLocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyLocalStore.swift; sourceTree = "<group>"; };
 		FAB447EA24A8D1D0008923A4 /* CurrencyLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrencyLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,8 +271,10 @@
 			children = (
 				FAB447EE24A8D1D0008923A4 /* Info.plist */,
 				FA3AD17624A8D7A300B83D10 /* ExchangeRatesViewModelTests.swift */,
+				FA8F7B3F24A91897003D3C25 /* SupportedCurrenciesViewModelTests.swift */,
 				FA3AD17824A8D7CE00B83D10 /* MockCurrencyService.swift */,
 				FA3AD17C24A8E2BD00B83D10 /* MockExchangeRatesWireframe.swift */,
+				FA8F7B4124A918C5003D3C25 /* MockSupportedCurrenciesWireframe.swift */,
 			);
 			path = CurrencyLayerTests;
 			sourceTree = "<group>";
@@ -575,6 +581,8 @@
 			files = (
 				FA3AD17924A8D7CE00B83D10 /* MockCurrencyService.swift in Sources */,
 				FA3AD17D24A8E2BD00B83D10 /* MockExchangeRatesWireframe.swift in Sources */,
+				FA8F7B4024A91897003D3C25 /* SupportedCurrenciesViewModelTests.swift in Sources */,
+				FA8F7B4224A918C5003D3C25 /* MockSupportedCurrenciesWireframe.swift in Sources */,
 				FA3AD17724A8D7A300B83D10 /* ExchangeRatesViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
