@@ -42,7 +42,7 @@ final class ExchangeRatesViewController: UIViewController {
     }
 
     func setupUI() {
-        
+
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Exchange Rates"
 

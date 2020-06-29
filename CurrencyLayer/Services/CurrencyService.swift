@@ -64,9 +64,9 @@ class CurrencyService: CurrencyServiceProtocol {
 
                 self.localStore.set(value: Date(), for: .currenciesFetchedTimestamp)
 
-                let currencies: [Currency] = response.currencies.map { [weak self] code, name in
+                let currencies: [Currency] = response.currencies.compactMap { [weak self] code, name in
                     let currency = self?.realmStore.addOrUpdateCurrency(code: code, name: name)
-                    return currency!
+                    return currency
                 }
 
                 return currencies.sorted { (lhs, rhs) in
@@ -101,13 +101,13 @@ extension CurrencyService {
                     self?.localStore.set(value: Date(), for: .quotesFetchedTimestamp)
                 }
 
-                let quotes: [Quote] = response.quotes.map { [weak self] currencyPair, exchangeRateValue in
+                let quotes: [Quote] = response.quotes.compactMap { [weak self] currencyPair, exchangeRateValue in
                     let code = String(currencyPair.suffix(3))
                     let quote = self?.realmStore.addOrUpdateQuote(
                         currencyCode: code,
                         exchangeRateValue: exchangeRateValue
                     )
-                    return quote!
+                    return quote
                 }
 
                 return quotes
