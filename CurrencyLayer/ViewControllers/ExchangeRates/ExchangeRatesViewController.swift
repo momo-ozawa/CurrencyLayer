@@ -42,7 +42,12 @@ final class ExchangeRatesViewController: UIViewController {
     }
 
     func setupUI() {
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = "Exchange Rates"
+
         amountTextField.keyboardType = .decimalPad
+        amountTextField.placeholder = "Enter an amount"
 
         let tapBackground = UITapGestureRecognizer()
         tapBackground.rx.event

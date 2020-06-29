@@ -24,9 +24,9 @@ class ExchangeRatesWireframe: ExchangeRatesWireframeProtocol {
 
     func routeToSupportedCurrencies(with currencyCode: BehaviorRelay<String>) {
         let dependency = SupportedCurrenciesViewController.Dependency(currencyCode: currencyCode)
-        let destination = SupportedCurrenciesViewController.instantiate(with: dependency)
-        let navigation = UINavigationController(rootViewController: destination)
-        self.viewController?.present(navigation, animated: true, completion: nil)
+        let destinationVC = SupportedCurrenciesViewController.instantiate(with: dependency)
+        let navigationVC = UINavigationController(rootViewController: destinationVC)
+        self.viewController?.present(navigationVC, animated: true)
     }
 
 }

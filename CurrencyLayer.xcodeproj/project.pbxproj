@@ -208,8 +208,8 @@
 				FAD2903324A34EBF0099688A /* Models */,
 				FAD2904824A351DE0099688A /* ViewModels */,
 				FA89931624A6AEAB009DEF80 /* ViewControllers */,
-				FAD2903224A34EB60099688A /* Resources */,
 				FA70241224A88C73005DD7B1 /* Protocol */,
+				FAD2903224A34EB60099688A /* Resources */,
 			);
 			path = CurrencyLayer;
 			sourceTree = "<group>";

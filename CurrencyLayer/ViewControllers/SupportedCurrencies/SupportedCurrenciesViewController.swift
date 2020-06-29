@@ -38,7 +38,12 @@ final class SupportedCurrenciesViewController: UIViewController {
             wireframe: SupportedCurrenciesWireframe(for: self)
         )
 
+        setupUI()
         bindUI()
+    }
+
+    func setupUI() {
+        self.title = "Supported Currencies"
     }
 
     func bindUI() {
