@@ -17,7 +17,7 @@ protocol CurrencyServiceProtocol {
     func setBaseCurrencyCode(_ code: String)
 }
 
-struct CurrencyService: CurrencyServiceProtocol {
+class CurrencyService: CurrencyServiceProtocol {
 
     private let API: CurrencyAPIProtocol
     private let realmStore: CurrencyRealmStoreProtocol
@@ -57,7 +57,6 @@ struct CurrencyService: CurrencyServiceProtocol {
         if let timestamp: Date = localStore.get(for: .currenciesFetchedTimestamp), Date() < timestamp + 30 * 60,
            let fetchedCurrencies = realmStore.getCurrencies() {
             return Observable.of(fetchedCurrencies)
-
         }
 
         return API.getCurrencies()
@@ -65,8 +64,8 @@ struct CurrencyService: CurrencyServiceProtocol {
 
                 self.localStore.set(value: Date(), for: .currenciesFetchedTimestamp)
 
-                let currencies: [Currency] = response.currencies.map { code, name in
-                    let currency = self.realmStore.addOrUpdateCurrency(code: code, name: name)
+                let currencies: [Currency] = response.currencies.map { [weak self] code, name in
+                    let currency = self?.realmStore.addOrUpdateCurrency(code: code, name: name)
                     return currency!
                 }
 
@@ -96,15 +95,15 @@ extension CurrencyService {
         }
 
         return API.getQuotes()
-            .map { response in
+            .map { [weak self] response in
 
                 if response.success {
-                    self.localStore.set(value: Date(), for: .quotesFetchedTimestamp)
+                    self?.localStore.set(value: Date(), for: .quotesFetchedTimestamp)
                 }
 
-                let quotes: [Quote] = response.quotes.map { currencyPair, exchangeRateValue in
+                let quotes: [Quote] = response.quotes.map { [weak self] currencyPair, exchangeRateValue in
                     let code = String(currencyPair.suffix(3))
-                    let quote = self.realmStore.addOrUpdateQuote(
+                    let quote = self?.realmStore.addOrUpdateQuote(
                         currencyCode: code,
                         exchangeRateValue: exchangeRateValue
                     )
