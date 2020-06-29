@@ -19,6 +19,7 @@ class ExchangeRatesViewModel {
 
     let currencyCode: BehaviorRelay<String>
     let exchangeRates = BehaviorRelay<[ExchangeRate]>.init(value: [])
+    let exchangeRatesError = PublishRelay<APIError>()
 
     // MARK: - Init
 
@@ -38,13 +39,24 @@ class ExchangeRatesViewModel {
             .flatMap { $0 }
             .asDriver(onErrorJustReturn: 1.0)
 
-        Driver
+        let result = Driver
             .combineLatest(input.amount, baseValue) { amount, value in
                 service.getExchangeRates(for: Double(amount) ?? 0.0, baseValue: value)
             }
             .asObservable()
             .flatMap { $0 }
+            .materialize()
+            .observeOn(MainScheduler.instance)
+            .share(replay: 1)
+
+        result
+            .compactMap { $0.element }
             .bind(to: exchangeRates)
+            .disposed(by: disposeBag)
+
+        result
+            .compactMap { $0.error as? APIError }
+            .bind(to: exchangeRatesError)
             .disposed(by: disposeBag)
 
         input.baseCurrencyTap

@@ -54,6 +54,13 @@ final class SupportedCurrenciesViewController: UIViewController {
                 cell.accessoryType = self.viewModel.baseCurrencyCode.value == currency.code ? .checkmark : .none
             }
             .disposed(by: disposeBag)
+
+        viewModel.currenciesError
+            .subscribe(onNext: { [weak self] error in
+                guard let self = self else { return }
+                self.showErrorAlert(error)
+            })
+            .disposed(by: disposeBag)
     }
 
 }
@@ -73,3 +80,5 @@ extension SupportedCurrenciesViewController: StoryboardInstantiatable {
     }
 
 }
+
+extension SupportedCurrenciesViewController: AlertDisplayable {}

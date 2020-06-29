@@ -65,6 +65,13 @@ final class ExchangeRatesViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        viewModel.exchangeRatesError
+            .subscribe(onNext: { [weak self] error in
+                guard let self = self else { return }
+                self.showErrorAlert(error)
+            })
+            .disposed(by: disposeBag)
+
         viewModel.currencyCode
             .bind(to: baseCurrencyButton.rx.title())
             .disposed(by: disposeBag)
@@ -79,3 +86,5 @@ extension ExchangeRatesViewController: StoryboardInstantiatable {
     }
 
 }
+
+extension ExchangeRatesViewController: AlertDisplayable {}

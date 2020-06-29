@@ -19,6 +19,7 @@ class SupportedCurrenciesViewModel {
 
     // MARK: - Outputs
     let currencies = BehaviorRelay<[Currency]>.init(value: [])
+    let currenciesError = PublishRelay<APIError>()
 
     // MARK: - Init
 
@@ -33,8 +34,19 @@ class SupportedCurrenciesViewModel {
     ) {
         self.baseCurrencyCode = input.baseCurrencyCode
 
-        service.getCurrencyArray()
+        let result = service.getCurrencyArray()
+            .materialize()
+            .observeOn(MainScheduler.instance)
+            .share(replay: 1)
+
+        result
+            .compactMap { $0.element }
             .bind(to: currencies)
+            .disposed(by: disposeBag)
+
+        result
+            .compactMap { $0.error as? APIError }
+            .bind(to: currenciesError)
             .disposed(by: disposeBag)
 
         input.currencySelected

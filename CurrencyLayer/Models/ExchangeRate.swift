@@ -19,5 +19,4 @@ extension ExchangeRate {
     }
 }
 
-extension ExchangeRate: Equatable {
-}
+extension ExchangeRate: Equatable {}

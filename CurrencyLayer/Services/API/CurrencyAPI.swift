@@ -15,12 +15,35 @@ protocol CurrencyAPIProtocol {
     func getCurrencies() -> Observable<Currencies>
 }
 
-// MARK: - API errors
+// MARK: - API Errors
 
-enum Errors: Error {
+enum APIError: Error {
     case responseError(ErrorDetail)
     case connectionError
+    case unknownError
+
+    var message: String {
+        switch self {
+        case .responseError(let errorDetail):
+            return errorDetail.info
+        case .connectionError:
+            return "Please check your internet connection"
+        case .unknownError:
+            return "Unknown error occured"
+        }
+    }
 }
+
+struct CurrencyLayerError: Error, Decodable {
+    let error: ErrorDetail
+}
+
+struct ErrorDetail: Decodable {
+    let code: Int
+    let info: String
+}
+
+// MARK: - Currency API
 
 class CurrencyAPI: CurrencyAPIProtocol {
 
@@ -43,7 +66,7 @@ class CurrencyAPI: CurrencyAPIProtocol {
             request.responseJSON { response in
 
                 guard let data = response.data else {
-                    observer.onError(Errors.connectionError)
+                    observer.onError(APIError.connectionError)
                     return
                 }
 
@@ -52,11 +75,11 @@ class CurrencyAPI: CurrencyAPIProtocol {
                         observer.onNext(obj)
                         observer.onCompleted()
                     } else {
-                        let apiError = try JSONDecoder().decode(APIError.self, from: data)
-                        observer.onError(Errors.responseError(apiError.error))
+                        let currencyLayerError = try JSONDecoder().decode(CurrencyLayerError.self, from: data)
+                        observer.onError(APIError.responseError(currencyLayerError.error))
                     }
-                } catch let error {
-                    observer.onError(error)
+                } catch {
+                    observer.onError(APIError.unknownError)
                 }
             }
 
